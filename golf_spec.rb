@@ -40,7 +40,7 @@ describe HoleLayout  do
 
     it "returns a hash of holes" do
 
-     # expect(@g.read_course(@course).course_hash).to be_a Hash
+     
      expect(@g.read_course(@course)).to be_a Hash
 
     end
@@ -49,6 +49,24 @@ describe HoleLayout  do
 
 
 end
+
+describe ScoreCard do
+
+  describe "Check if scorecard exists"
+    before(:each) do
+      @sc = ScoreCard.new
+    end
+
+    it "exists" do
+      expect(@sc).not_to be_nil
+    end
+
+
+
+
+
+end 
+
 
 
 

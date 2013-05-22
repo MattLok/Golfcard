@@ -16,7 +16,7 @@ class HoleLayout
     holes = Hash.new(0)    #temp.inject(Hash.new(0)) { |key, value|  key += 1; key[value] }
     (0..17).each do |x|
       count = x +1
-      holes[count] = temp[x]
+      holes[count] = [temp[x]]
     end
 
     #puts holes.inspect
@@ -29,6 +29,16 @@ class HoleLayout
     File.exist?('course.csv')
 
   end
+
+
+end
+
+
+
+class ScoreCard
+
+
+
 
 
 end
