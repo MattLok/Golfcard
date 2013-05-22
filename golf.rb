@@ -9,12 +9,19 @@ class HoleLayout
 
   def read_course course
 
-    holes = CSV.read(course)
-    
-      
-    #puts holes
-    #puts holes.class
-    holes.flatten!
+    temp = CSV.read(course)
+    temp.flatten!
+    #puts temp.inspect
+    #holes = temp.inject(Hash.new(0)) {|key,value| key[value] += 1; value;}
+    holes = Hash.new(0)    #temp.inject(Hash.new(0)) { |key, value|  key += 1; key[value] }
+    (0..17).each do |x|
+      count = x +1
+      holes[count] = temp[x]
+    end
+
+    #puts holes.inspect
+  
+    holes
  
   end
 

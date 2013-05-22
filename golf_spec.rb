@@ -26,12 +26,23 @@ describe HoleLayout  do
 
      it "reads the csv file" do
 
-      expect(@g.read_course(@course)).to be_a Array
+      expect(@g.read_course(@course)).not_to be_nil
     end
 
     it "has 18 holes" do
 
       expect(@g.read_course(@course)).to have(18).things
+    end
+
+
+  describe "turning hole layout into hash"
+
+
+    it "returns a hash of holes" do
+
+     # expect(@g.read_course(@course).course_hash).to be_a Hash
+     expect(@g.read_course(@course)).to be_a Hash
+
     end
 
 
