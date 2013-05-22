@@ -12,8 +12,10 @@ class HoleLayout
     holes = CSV.read(course)
     
       
-    puts holes
-    puts holes.class
+    #puts holes
+    #puts holes.class
+    holes.flatten!
+ 
   end
 
   def course_file
