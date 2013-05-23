@@ -67,6 +67,7 @@ describe ScoreCard do
     before(:each) do
       @course = 'course.csv'
       @sc = ScoreCard.new(@course)
+      @sc.add_score([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1])
 
     end
 
@@ -82,11 +83,21 @@ describe ScoreCard do
       puts @sc.holes
     end
 
-    it "it can add scores to scorecard" do 
-      expect(@sc.add_score([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]))
-      puts @sc.holes
+    # it "it can add scores to scorecard" do 
+    #   expect(@sc.add_score([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]))
+    #   puts @sc.holes
+    # end
+
+    it "can check difference between actual score and par" do 
+      puts @sc.holes.inspect  
+      expect(@sc.score_diff).to_not be_nil
+
     end
 
+    it "can convert score difference into golf terminology" do 
+      expect(@sc.golf_term(1)).to eql("bogey")
+
+    end
 
 
 

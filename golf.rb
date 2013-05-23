@@ -25,10 +25,6 @@ class HoleLayout
       holes[count] = [temp[x].to_i]
     end
 
-    #puts holes.inspect
-  
-    #@holes = holes
-
     holes
  
   end
@@ -51,9 +47,18 @@ class ScoreCard < HoleLayout
     @holes.each do |k,v|
       k = v.push(array[k])
     end
+  end
+
+  def score_diff
+
+    @holes.each do |k,v|
+      score = v[0] - v[1]
+      puts score
+    end
 
 
   end
+
 
 
 
