@@ -22,7 +22,7 @@ class HoleLayout
     holes = Hash.new(0)    #temp.inject(Hash.new(0)) { |key, value|  key += 1; key[value] }
     (0..17).each do |x|
       count = x +1
-      holes[count] = [temp[x]]
+      holes[count] = [temp[x].to_i]
     end
 
     #puts holes.inspect
@@ -44,6 +44,16 @@ end
 
 
 class ScoreCard < HoleLayout
+
+
+  def add_score array
+
+    @holes.each do |k,v|
+      k = v.push(array[k])
+    end
+
+
+  end
 
 
 

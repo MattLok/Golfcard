@@ -82,6 +82,11 @@ describe ScoreCard do
       puts @sc.holes
     end
 
+    it "it can add scores to scorecard" do 
+      expect(@sc.add_score([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]))
+      puts @sc.holes
+    end
+
 
 
 
