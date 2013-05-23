@@ -79,9 +79,13 @@ describe ScoreCard do
       expect(@sc).to be_a_kind_of HoleLayout
     end
 
-    it "can access @holes" do
-      puts @sc.holes
-    end
+    # it "has a name" do 
+    #   expect(@sc.name).not_to be_nil
+    # end
+
+    # it "can access @holes" do
+    #   puts @sc.holes
+    # end
 
     # it "it can add scores to scorecard" do 
     #   expect(@sc.add_score([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]))
@@ -107,18 +111,61 @@ describe ScoreCard do
 
     it "writes the score term to the scorecard" do
       @sc.score_diff
-      puts @sc.holes.inspect
+      #puts @sc.holes.inspect
       expect(@sc.holes.values[0]).to have(3).things
     end
 
     it "can calculate the final score" do
-      puts @sc.final_score
+      #puts @sc.final_score
       expect(@sc.final_score).to be_a Fixnum
     end
 
     it "can calculate par for the course" do
-      puts @sc.par
-      expect(@sc.par).to be_a Fixnum
+      #puts @sc.par
+      expect(@sc.par).to eql(72)
+    end
+
+
+end 
+
+describe Player do 
+
+
+  describe "player object"
+  before(:each) do
+      @course = 'course.csv'
+      #@sc = ScoreCard.new(@course)
+      #@sc.add_score([4,4,3,5,6,6,2,3,3,4,4,7,8,9,2,4,3,5,2])
+      @p1 = Player.new("Matt M", @course)
+      @p1.scorecard.add_score([4,4,3,5,6,6,2,3,3,4,4,7,8,9,2,4,3,5,2])
+      @p1.scorecard.score_diff
+  end
+
+    it "exists" do
+      expect(@p1).to_not  be_nil
+
+    end
+
+    it "has a scorecard" do
+      puts @p1.scorecard.holes
+      puts @p1.scorecard.inspect
+      expect(@p1.scorecard).to_not be_nil
+    end
+
+
+    it "prints a player scorecard" do
+      @p1.print_player
+      #expect(@p1.print_player).to_not be_nil
+    end
+
+    it "checks if scorecard file exists" do
+      File.exist?("/Users/Matt/documents/challenges/golf/score.csv")
+
+    end
+
+    it "writes to scorecard file" do
+      @p1.write_player
+
     end
 
 
@@ -127,8 +174,7 @@ describe ScoreCard do
 
 
 
-end 
 
-
+end
 
 

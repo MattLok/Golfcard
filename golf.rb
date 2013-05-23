@@ -41,6 +41,14 @@ end
 
 class ScoreCard < HoleLayout
 
+  # def initialize(name, course)
+  #   @name = name
+  #   @holes = HoleLayout.new(course)
+
+  # end
+  # def add_name name
+  #   @name = name
+  # end
 
   def add_score array
 
@@ -89,7 +97,7 @@ class ScoreCard < HoleLayout
       #par += v[0]
     end
 
-    puts "Scored #{score}" #{}out of #{par}"
+    #puts "Scored #{score}" #{}out of #{par}"
     score
   end
 
@@ -102,9 +110,67 @@ class ScoreCard < HoleLayout
     par
   end
 
+end
+
+
+
+class Player #< ScoreCard
+
+  attr_reader :scorecard
+
+  def initialize(name, course)
+    @name = name
+    @scorecard = ScoreCard.new(course)
+  end
+
+
+  def print_player
+
+    print "== #{@name} \n"
+    @scorecard.holes.each do |k,v|
+      print "Hole #{k}: #{v[0]} - #{v[2]} \n"
+    end
+    print "Total score: #{@scorecard.final_score} \n"
+    if @scorecard.final_score > @scorecard.par
+      print "+#{(@scorecard.final_score) - (@scorecard.par)}\n =="
+    else
+      print "#{(@scorecard.final_score) - (@scorecard.par)}\n =="
+    end
+
+  end
+
+  def write_player
+
+    File.open("scores.csv","w") do |file|
+      file.write "#{@name}, "
+        @scorecard.holes.each do |k,v|
+          file.write "#{v[1]},"
+      end
+    end
+
+  end
+
+
+
+
+
+
+
 
 
 
 
 
 end
+
+
+
+
+
+
+
+
+
+
+
+
