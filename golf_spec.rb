@@ -179,22 +179,29 @@ describe LeaderBoard do
     end
 
     it "expect to have 3 elements" do
-      puts @leaders.inspect
+      #puts @leaders.inspect
       #expect(@leaders.length).to eql(3)
     end
 
-    it "lists player scores" do
-
-      @leaders.scores
-      expect(@leaders.scores).to be_a Array
-
-
-    end
+   
 
     it "checks if player name is accessible" do
       expect(@leaders.get_name).to be_a String
     end
 
+    it "lists player scores" do
+
+      #@leaders.scores
+      expect(@leaders.scores).to be_a Array
+
+
+    end
+
+    it "sorts the leader board" do
+      #@leaders.sort
+      #expect(@leaders.test).to be_a Fixnum
+      expect(@leaders.sort).to eql [@p2,@p1,@p3]
+    end
 
 
 end

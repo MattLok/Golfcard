@@ -146,6 +146,7 @@ end
 
 
 class LeaderBoard
+  #include Comparable
 
 
   def initialize (*args)
@@ -157,22 +158,23 @@ class LeaderBoard
 
 
   def scores
-    puts @leaders.length
+    #puts @leaders.length
 
     @leaders.each do |leader|
       print "#{leader.name} - #{leader.scorecard.final_score}\n"
     end
-
-
   end
 
   def get_name
     @leaders[0].name
   end
 
-
-
-
+  def sort
+   arr = @leaders.sort{|a,b| a.scorecard.final_score <=> b.scorecard.final_score }
+    arr.each do |leader|
+      print "#{leader.name} - #{leader.scorecard.final_score}\n"
+    end
+  end
 
 
 
