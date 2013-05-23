@@ -88,6 +88,8 @@ describe ScoreCard do
     #   puts @sc.holes
     # end
 
+  describe "Altering and accessing the scorecard"
+
     it "can check difference between actual score and par" do 
       #puts @sc.holes.inspect  
       expect(@sc.score_diff).to_not be_nil
@@ -108,6 +110,17 @@ describe ScoreCard do
       puts @sc.holes.inspect
       expect(@sc.holes.values[0]).to have(3).things
     end
+
+    it "can calculate the final score" do
+      puts @sc.final_score
+      expect(@sc.final_score).to be_a Fixnum
+    end
+
+    it "can calculate par for the course" do
+      puts @sc.par
+      expect(@sc.par).to be_a Fixnum
+    end
+
 
 
 

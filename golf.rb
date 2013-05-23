@@ -62,7 +62,6 @@ class ScoreCard < HoleLayout
 
   def golf_term score
 
-
     case score
       when -1
          "bogey"
@@ -80,6 +79,27 @@ class ScoreCard < HoleLayout
         score
     end
 
+  end
+
+  def final_score
+    #par = 0
+    score = 0
+    @holes.each do |k,v|
+      score += v[1]
+      #par += v[0]
+    end
+
+    puts "Scored #{score}" #{}out of #{par}"
+    score
+  end
+
+  def par
+    par =0
+    @holes.each do |k,v|
+      par += v[0]
+    end
+
+    par
   end
 
 
