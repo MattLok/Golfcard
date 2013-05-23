@@ -53,7 +53,8 @@ class ScoreCard < HoleLayout
 
     @holes.each do |k,v|
       score = v[0] - v[1]
-      puts score
+      #puts score
+       v.push(golf_term(score))    
     end
 
 
@@ -63,20 +64,20 @@ class ScoreCard < HoleLayout
 
 
     case score
-    when -1
-       "bogey"
-    when -2
-      "double bogey"
-    when -3
-      "triple bogey"
-    when 0
-      "par"
-    when 1 
-      "birdie"
-    when 2 
-      "eagle"
-    else
-       score
+      when -1
+         "bogey"
+      when -2
+        "double bogey"
+      when -3
+        "triple bogey"
+      when 0
+        "par"
+      when 1 
+        "birdie"
+      when 2 
+        "eagle"
+      else
+        score
     end
 
   end
