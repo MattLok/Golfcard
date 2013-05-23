@@ -95,9 +95,15 @@ describe ScoreCard do
     end
 
     it "can convert score difference into golf terminology" do 
-      expect(@sc.golf_term(1)).to eql("bogey")
+      expect(@sc.golf_term(1)).to eql("birdie")
+      expect(@sc.golf_term(2)).to eql("eagle")
+      expect(@sc.golf_term(0)).to eql("par")
+      expect(@sc.golf_term(-1)).to eql("bogey")
+      expect(@sc.golf_term(5)).to be_a Fixnum
 
     end
+
+
 
 
 

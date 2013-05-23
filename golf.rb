@@ -59,6 +59,28 @@ class ScoreCard < HoleLayout
 
   end
 
+  def golf_term score
+
+
+    case score
+    when -1
+       "bogey"
+    when -2
+      "double bogey"
+    when -3
+      "triple bogey"
+    when 0
+      "par"
+    when 1 
+      "birdie"
+    when 2 
+      "eagle"
+    else
+       score
+    end
+
+  end
+
 
 
 
