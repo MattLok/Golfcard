@@ -41,14 +41,6 @@ end
 
 class ScoreCard < HoleLayout
 
-  # def initialize(name, course)
-  #   @name = name
-  #   @holes = HoleLayout.new(course)
-
-  # end
-  # def add_name name
-  #   @name = name
-  # end
 
   def add_score array
 
@@ -97,7 +89,6 @@ class ScoreCard < HoleLayout
       #par += v[0]
     end
 
-    #puts "Scored #{score}" #{}out of #{par}"
     score
   end
 
@@ -114,9 +105,9 @@ end
 
 
 
-class Player #< ScoreCard
+class Player 
 
-  attr_reader :scorecard
+  attr_reader :scorecard, :name
 
   def initialize(name, course)
     @name = name
@@ -151,9 +142,33 @@ class Player #< ScoreCard
   end
 
 
+end
 
 
+class LeaderBoard
 
+
+  def initialize (*args)
+
+    @leaders = []
+    @leaders.push(*args)
+
+  end
+
+
+  def scores
+    puts @leaders.length
+
+    @leaders.each do |leader|
+      print "#{leader.name} - #{leader.scorecard.final_score}\n"
+    end
+
+
+  end
+
+  def get_name
+    @leaders[0].name
+  end
 
 
 
@@ -162,6 +177,7 @@ class Player #< ScoreCard
 
 
 end
+
 
 
 

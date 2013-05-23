@@ -16,7 +16,7 @@ describe HoleLayout  do
    
  
     it "exists" do
-     # g = HoleLayout.new
+ 
       expect(@g).not_to be_nil
 
     end
@@ -36,17 +36,6 @@ describe HoleLayout  do
 
       expect(@g.read_course(@course)).to have(18).things
     end
-
-
-  # describe "turning hole layout into hash"
-
-
-  #   it "returns a hash of holes" do
-
-     
-  #    expect(@g.read_course(@course)).to be_a Hash
-
-  #   end
 
 
     it "has accessible instance variable of @holes" do
@@ -79,18 +68,6 @@ describe ScoreCard do
       expect(@sc).to be_a_kind_of HoleLayout
     end
 
-    # it "has a name" do 
-    #   expect(@sc.name).not_to be_nil
-    # end
-
-    # it "can access @holes" do
-    #   puts @sc.holes
-    # end
-
-    # it "it can add scores to scorecard" do 
-    #   expect(@sc.add_score([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]))
-    #   puts @sc.holes
-    # end
 
   describe "Altering and accessing the scorecard"
 
@@ -169,9 +146,54 @@ describe Player do
     end
 
 
+end
+
+
+describe LeaderBoard do
 
 
 
+  describe "board"
+
+  before(:each) do
+    @course = 'course.csv'
+    @p1 = Player.new("Matt M", @course)
+    @p1.scorecard.add_score([4,4,3,5,6,6,2,6,3,4,4,7,8,9,2,4,3,5,2])
+    @p1.scorecard.score_diff
+
+    @p2 = Player.new("Carl Z", @course)
+    @p2.scorecard.add_score([4,4,3,5,6,6,2,3,3,4,4,7,8,9,2,4,3,5,4])
+    @p2.scorecard.score_diff
+
+    @p3 = Player.new("Fuzzy Z", @course)
+    @p3.scorecard.add_score([4,5,4,5,6,6,4,3,3,5,5,7,8,9,2,4,3,5,2])
+    @p3.scorecard.score_diff
+
+    @leaders = LeaderBoard.new(@p1,@p2,@p3)
+  end
+    it "exists" do
+
+      expect(@leaders).to_not be_nil
+
+
+    end
+
+    it "expect to have 3 elements" do
+      puts @leaders.inspect
+      #expect(@leaders.length).to eql(3)
+    end
+
+    it "lists player scores" do
+
+      @leaders.scores
+      expect(@leaders.scores).to be_a Array
+
+
+    end
+
+    it "checks if player name is accessible" do
+      expect(@leaders.get_name).to be_a String
+    end
 
 
 
