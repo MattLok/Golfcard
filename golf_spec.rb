@@ -4,13 +4,16 @@ require_relative 'golf'
 
 describe HoleLayout  do
 
-  describe "Checking if file exists and reading it"
-
-    before(:each) do
-      @g = HoleLayout.new
+   before(:each) do
+      #@g = HoleLayout.new
       @course = 'course.csv'
+      @g = HoleLayout.new(@course)
     end
 
+
+  describe "Checking if file exists and reading it"
+
+   
  
     it "exists" do
      # g = HoleLayout.new
@@ -35,14 +38,22 @@ describe HoleLayout  do
     end
 
 
-  describe "turning hole layout into hash"
+  # describe "turning hole layout into hash"
 
 
-    it "returns a hash of holes" do
+  #   it "returns a hash of holes" do
 
      
-     expect(@g.read_course(@course)).to be_a Hash
+  #    expect(@g.read_course(@course)).to be_a Hash
 
+  #   end
+
+
+    it "has accessible instance variable of @holes" do
+      @newholes = HoleLayout.new(@course)
+      #expect(@newholes.holes).to_not be_nil 
+      #puts @newholes.holes
+      expect(@newholes.holes).to be_a Hash
     end
 
 
@@ -54,11 +65,21 @@ describe ScoreCard do
 
   describe "Check if scorecard exists"
     before(:each) do
-      @sc = ScoreCard.new
+      @course = 'course.csv'
+      @sc = ScoreCard.new(@course)
+
     end
 
     it "exists" do
       expect(@sc).not_to be_nil
+    end
+
+    it "inherits from HoleLayout" do
+      expect(@sc).to be_a_kind_of HoleLayout
+    end
+
+    it "can access @holes" do
+      puts @sc.holes
     end
 
 

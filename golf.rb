@@ -6,6 +6,12 @@ require 'csv'
 class HoleLayout
 
 #course = 'course.csv'
+  attr_accessor :holes
+
+  def initialize(course)
+
+    @holes = read_course(course)
+  end
 
   def read_course course
 
@@ -21,6 +27,8 @@ class HoleLayout
 
     #puts holes.inspect
   
+    #@holes = holes
+
     holes
  
   end
@@ -35,7 +43,7 @@ end
 
 
 
-class ScoreCard
+class ScoreCard < HoleLayout
 
 
 
