@@ -52,7 +52,7 @@ end
 
 describe ScoreCard do
 
-  describe "Check if scorecard exists"
+  describe "it has accessible holes"
     before(:each) do
       @course = 'course.csv'
       @sc = ScoreCard.new(@course)
@@ -108,14 +108,17 @@ end
 describe Player do 
 
 
-  describe "player object"
+ 
   before(:each) do
-      @course = 'course.csv'
+      @course = 'course2.csv'
+      #@course2 = 'course2.csv'
       #@sc = ScoreCard.new(@course)
       #@sc.add_score([4,4,3,5,6,6,2,3,3,4,4,7,8,9,2,4,3,5,2])
-      @p1 = Player.new("Matt M", @course)
-      @p1.scorecard.add_score([4,4,3,5,6,6,2,3,3,4,4,7,8,9,2,4,3,5,2])
-      @p1.scorecard.score_diff
+      @p1 = Player.new("Matt M", @course) #, @course2)
+      @p1.add_score_to_empty_card([4,4,3,5,6,6,2,3,3,4,4,7,8,9,2,4,3,5,2])
+      @p1.calculate_all_diffs
+
+
   end
 
     it "exists" do
@@ -128,6 +131,11 @@ describe Player do
       puts @p1.scorecard.inspect
       expect(@p1.scorecard).to_not be_nil
     end
+
+    it "has multiple scorecards" do
+      expect(@p1.scorecard[1]).to_not be_nil
+    end
+
 
 
     it "prints a player scorecard" do

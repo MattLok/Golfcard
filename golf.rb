@@ -1,6 +1,7 @@
 
 
 require 'csv'
+require 'pry'
 
 
 class HoleLayout
@@ -40,6 +41,8 @@ end
 
 
 class ScoreCard < HoleLayout
+
+  attr_accessor :holes
 
 
   def add_score array
@@ -109,23 +112,57 @@ class Player
 
   attr_reader :scorecard, :name
 
-  def initialize(name, course)
+  def initialize(name, *course)
     @name = name
-    @scorecard = ScoreCard.new(course)
+    @scorecards = []
+    #@scorecard.push(*course.each do { |x| }
+     course.each do |file|
+        @scorecards.push(ScoreCard.new(file))
+      end 
+      #binding.pry
+  end
+
+  def first_empty_scorecard
+    @scorecards.each do |card|
+      if card.holes.first[1].length == 1
+        return card
+      end
+      puts "did not find empty scorecard"
+
+    end
+
+  end
+
+  def calculate_all_diffs
+    @scorecards.each do |card|
+      card.score_diff
+    end
+  end
+
+  def add_score_to_empty_card array
+
+
+    empty = first_empty_scorecard
+    puts empty.holes
+    empty.holes.each do |k,v|
+      k = v.push(array[k])
+    end
+
+    empty.add_score(array)
   end
 
 
   def print_player
 
     print "== #{@name} \n"
-    @scorecard.holes.each do |k,v|
+    @scorecards.holes.each do |k,v|
       print "Hole #{k}: #{v[0]} - #{v[2]} \n"
     end
-    print "Total score: #{@scorecard.final_score} \n"
-    if @scorecard.final_score > @scorecard.par
-      print "+#{(@scorecard.final_score) - (@scorecard.par)}\n =="
+    print "Total score: #{@scorecards.final_score} \n"
+    if @scorecards.final_score > @scorecards.par
+      print "+#{(@scorecards.final_score) - (@scorecards.par)}\n =="
     else
-      print "#{(@scorecard.final_score) - (@scorecard.par)}\n =="
+      print "#{(@scorecards.final_score) - (@scorecards.par)}\n =="
     end
 
   end
