@@ -110,7 +110,7 @@ end
 
 class Player 
 
-  attr_reader :scorecard, :name
+  attr_reader :scorecards, :name
 
   def initialize(name, *course)
     @name = name
@@ -143,12 +143,12 @@ class Player
 
 
     empty = first_empty_scorecard
-    puts empty.holes
+    #puts empty.holes
     empty.holes.each do |k,v|
       k = v.push(array[k])
     end
 
-    empty.add_score(array)
+    #empty.add_score(array)
   end
 
 
@@ -166,6 +166,23 @@ class Player
     end
 
   end
+
+  def print_all_player_scores
+    print "== #{@name} \n"
+    @scorecards.each do |card|
+      card.holes.each do |k,v|
+        print "Hole #{k}: #{v[0]} - #{v[2]} \n"
+      end
+    print "Total score: #{card.final_score} \n"
+      if card.final_score > card.par
+        print "+#{(card.final_score) - (card.par)}\n =="
+      else
+        print "#{(card.final_score) - (card.par)}\n =="
+      end
+        puts
+    end
+  end
+
 
   def write_player
 

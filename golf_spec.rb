@@ -110,12 +110,13 @@ describe Player do
 
  
   before(:each) do
-      @course = 'course2.csv'
-      #@course2 = 'course2.csv'
+      @course = 'course.csv'
+      @course2 = 'course2.csv'
       #@sc = ScoreCard.new(@course)
       #@sc.add_score([4,4,3,5,6,6,2,3,3,4,4,7,8,9,2,4,3,5,2])
-      @p1 = Player.new("Matt M", @course) #, @course2)
+      @p1 = Player.new("Matt M", @course, @course2)
       @p1.add_score_to_empty_card([4,4,3,5,6,6,2,3,3,4,4,7,8,9,2,4,3,5,2])
+      @p1.add_score_to_empty_card([4,4,3,5,6,6,2,5,5,4,5,7,8,9,2,4,3,5,3])
       @p1.calculate_all_diffs
 
 
@@ -127,31 +128,35 @@ describe Player do
     end
 
     it "has a scorecard" do
-      puts @p1.scorecard.holes
-      puts @p1.scorecard.inspect
-      expect(@p1.scorecard).to_not be_nil
+      puts @p1.scorecards[0].holes
+      puts @p1.scorecards[0].inspect
+      expect(@p1.scorecards[0]).to_not be_nil
     end
 
     it "has multiple scorecards" do
-      expect(@p1.scorecard[1]).to_not be_nil
+       expect(@p1.scorecards[1]).to_not be_nil
+    end
+
+    it "can print multiple score cards out" do 
+      @p1.print_all_player_scores
     end
 
 
 
-    it "prints a player scorecard" do
-      @p1.print_player
-      #expect(@p1.print_player).to_not be_nil
-    end
+    # it "prints a player scorecard" do
+    #   @p1.print_player
+    #   #expect(@p1.print_player).to_not be_nil
+    # end
 
-    it "checks if scorecard file exists" do
-      File.exist?("/Users/Matt/documents/challenges/golf/score.csv")
+    # it "checks if scorecard file exists" do
+    #   File.exist?("/Users/Matt/documents/challenges/golf/score.csv")
 
-    end
+    # end
 
-    it "writes to scorecard file" do
-      @p1.write_player
+    # it "writes to scorecard file" do
+    #   @p1.write_player
 
-    end
+    # end
 
 
 end
@@ -161,55 +166,55 @@ describe LeaderBoard do
 
 
 
-  describe "board"
+  # describe "board"
 
-  before(:each) do
-    @course = 'course.csv'
-    @p1 = Player.new("Matt M", @course)
-    @p1.scorecard.add_score([4,4,3,5,6,6,2,6,3,4,4,7,8,9,2,4,3,5,2])
-    @p1.scorecard.score_diff
+  # before(:each) do
+  #   @course = 'course.csv'
+  #   @p1 = Player.new("Matt M", @course)
+  #   @p1.scorecard.add_score([4,4,3,5,6,6,2,6,3,4,4,7,8,9,2,4,3,5,2])
+  #   @p1.scorecard.score_diff
 
-    @p2 = Player.new("Carl Z", @course)
-    @p2.scorecard.add_score([4,4,3,5,6,6,2,3,3,4,4,7,8,9,2,4,3,5,4])
-    @p2.scorecard.score_diff
+  #   @p2 = Player.new("Carl Z", @course)
+  #   @p2.scorecard.add_score([4,4,3,5,6,6,2,3,3,4,4,7,8,9,2,4,3,5,4])
+  #   @p2.scorecard.score_diff
 
-    @p3 = Player.new("Fuzzy Z", @course)
-    @p3.scorecard.add_score([4,5,4,5,6,6,4,3,3,5,5,7,8,9,2,4,3,5,2])
-    @p3.scorecard.score_diff
+  #   @p3 = Player.new("Fuzzy Z", @course)
+  #   @p3.scorecard.add_score([4,5,4,5,6,6,4,3,3,5,5,7,8,9,2,4,3,5,2])
+  #   @p3.scorecard.score_diff
 
-    @leaders = LeaderBoard.new(@p1,@p2,@p3)
-  end
-    it "exists" do
+  #   @leaders = LeaderBoard.new(@p1,@p2,@p3)
+  # end
+  #   it "exists" do
 
-      expect(@leaders).to_not be_nil
+  #     expect(@leaders).to_not be_nil
 
 
-    end
+  #   end
 
-    it "expect to have 3 elements" do
-      #puts @leaders.inspect
-      #expect(@leaders.length).to eql(3)
-    end
+  #   it "expect to have 3 elements" do
+  #     #puts @leaders.inspect
+  #     #expect(@leaders.length).to eql(3)
+  #   end
 
    
 
-    it "checks if player name is accessible" do
-      expect(@leaders.get_name).to be_a String
-    end
+  #   it "checks if player name is accessible" do
+  #     expect(@leaders.get_name).to be_a String
+  #   end
 
-    it "lists player scores" do
+  #   it "lists player scores" do
 
-      #@leaders.scores
-      expect(@leaders.scores).to be_a Array
+  #     #@leaders.scores
+  #     expect(@leaders.scores).to be_a Array
 
 
-    end
+  #   end
 
-    it "sorts the leader board" do
-      #@leaders.sort
-      #expect(@leaders.test).to be_a Fixnum
-      expect(@leaders.sort).to eql [@p2,@p1,@p3]
-    end
+  #   it "sorts the leader board" do
+  #     #@leaders.sort
+  #     #expect(@leaders.test).to be_a Fixnum
+  #     expect(@leaders.sort).to eql [@p2,@p1,@p3]
+  #   end
 
 
 end
