@@ -141,6 +141,11 @@ describe Player do
       @p1.print_all_player_scores
     end
 
+    it "can calculate a players handicap" do 
+      expect(@p1.handicap).to be_a Fixnum
+
+    end
+
 
 
     # it "prints a player scorecard" do
@@ -166,50 +171,65 @@ describe LeaderBoard do
 
 
 
-  # describe "board"
+  describe "board"
 
-  # before(:each) do
-  #   @course = 'course.csv'
-  #   @p1 = Player.new("Matt M", @course)
-  #   @p1.scorecard.add_score([4,4,3,5,6,6,2,6,3,4,4,7,8,9,2,4,3,5,2])
-  #   @p1.scorecard.score_diff
+  before(:each) do
+    @course = 'course.csv'
+    @course2 = 'course2.csv'
+    @p1 = Player.new("Matt M", @course,@course2)
+    @p1.add_score_to_empty_card([4,4,3,5,6,6,2,6,3,4,4,7,8,9,2,4,3,5,2])
+    @p1.add_score_to_empty_card([3,3,5,5,6,6,3,6,3,4,4,7,8,9,2,4,3,5,2])
 
-  #   @p2 = Player.new("Carl Z", @course)
-  #   @p2.scorecard.add_score([4,4,3,5,6,6,2,3,3,4,4,7,8,9,2,4,3,5,4])
-  #   @p2.scorecard.score_diff
+    @p1.calculate_all_diffs
 
-  #   @p3 = Player.new("Fuzzy Z", @course)
-  #   @p3.scorecard.add_score([4,5,4,5,6,6,4,3,3,5,5,7,8,9,2,4,3,5,2])
-  #   @p3.scorecard.score_diff
+    @p2 = Player.new("Carl Z", @course,@course2)
+    @p2.add_score_to_empty_card([4,4,3,5,6,6,2,3,3,4,4,7,8,9,2,4,3,5,4])
+    @p2.add_score_to_empty_card([4,4,3,5,5,5,2,6,3,4,4,7,8,9,2,4,3,5,2])
 
-  #   @leaders = LeaderBoard.new(@p1,@p2,@p3)
-  # end
-  #   it "exists" do
+    @p2.calculate_all_diffs
 
-  #     expect(@leaders).to_not be_nil
+    @p3 = Player.new("Fuzzy Z", @course, @course2)
+    @p3.add_score_to_empty_card([4,5,4,5,6,6,4,3,3,5,5,7,8,9,2,4,3,5,2])
+    @p3.add_score_to_empty_card([3,2,3,5,6,6,2,6,3,4,4,7,5,5,2,4,1,5,2])
+
+    @p3.calculate_all_diffs
+
+    @leaders = LeaderBoard.new(@p1,@p2,@p3)
+  end
+    it "exists" do
+
+      expect(@leaders).to_not be_nil
 
 
-  #   end
+    end
 
-  #   it "expect to have 3 elements" do
-  #     #puts @leaders.inspect
-  #     #expect(@leaders.length).to eql(3)
-  #   end
 
    
 
-  #   it "checks if player name is accessible" do
-  #     expect(@leaders.get_name).to be_a String
-  #   end
+    it "checks if player name is accessible" do
+      expect(@leaders.get_name).to be_a String
+    end
 
-  #   it "lists player scores" do
+    # it "lists player scores" do
 
-  #     #@leaders.scores
-  #     expect(@leaders.scores).to be_a Array
+    #   #@leaders.scores
+    #   expect(@leaders.scores).to be_a Array
 
 
-  #   end
+    # end
 
+
+    it "checks to see if all_scores returns an array of total rounds played" do
+
+      expect(@leaders.all_rounds).to be_a String
+
+    end  
+
+
+    it "prints the leader board for each round of golf played" do 
+      @leaders.print_each_round_leader(@leaders.all_rounds)
+      #expect(@leaders.print_each_round_leader(@leaders.all_rounds))
+    end
   #   it "sorts the leader board" do
   #     #@leaders.sort
   #     #expect(@leaders.test).to be_a Fixnum

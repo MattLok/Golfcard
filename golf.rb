@@ -127,7 +127,7 @@ class Player
       if card.holes.first[1].length == 1
         return card
       end
-      puts "did not find empty scorecard"
+      #puts "did not find empty scorecard"
 
     end
 
@@ -183,6 +183,25 @@ class Player
     end
   end
 
+  def handicap
+
+    handi = 0
+
+    @scorecards.each do |card|
+
+      handi += ((card.final_score) - (card.par))
+    end
+
+    handi = (handi / @scorecards.length).round
+
+    puts "#{@name} - #{handi} Handicap"
+
+    handi
+
+
+
+  end
+
 
   def write_player
 
@@ -215,7 +234,7 @@ class LeaderBoard
     #puts @leaders.length
 
     @leaders.each do |leader|
-      print "#{leader.name} - #{leader.scorecard.final_score}\n"
+      print "#{leader.name} - #{leader.scorecards.final_score}\n"
     end
   end
 
@@ -229,6 +248,38 @@ class LeaderBoard
       print "#{leader.name} - #{leader.scorecard.final_score}\n"
     end
   end
+
+
+  def all_rounds
+
+    rounds = []
+
+    @leaders.each_with_index do |player, index|
+      rounds.push([])
+
+      player.scorecards.each do |card|
+        rounds[index].push(["#{player.name}", card.final_score])
+      end
+
+    end
+    rounds 
+
+  end
+
+  def print_each_round_leader rounds
+
+    rounds.each_with_index do |player,index|
+      round_leaders = player[index][1].sort{|a,b| a <=> b}
+      puts round_leaders
+    end
+
+
+  end
+
+
+
+
+ 
 
 
 
