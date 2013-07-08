@@ -13,10 +13,10 @@ describe HoleLayout  do
 
   describe "Checking if file exists and reading it"
 
-   
- 
+
+
     it "exists" do
- 
+
       expect(@g).not_to be_nil
 
     end
@@ -40,8 +40,6 @@ describe HoleLayout  do
 
     it "has accessible instance variable of @holes" do
       @newholes = HoleLayout.new(@course)
-      #expect(@newholes.holes).to_not be_nil 
-      #puts @newholes.holes
       expect(@newholes.holes).to be_a Hash
     end
 
@@ -71,13 +69,13 @@ describe ScoreCard do
 
   describe "Altering and accessing the scorecard"
 
-    it "can check difference between actual score and par" do 
-      #puts @sc.holes.inspect  
+    it "can check difference between actual score and par" do
+
       expect(@sc.score_diff).to_not be_nil
 
     end
 
-    it "can convert score difference into golf terminology" do 
+    it "can convert score difference into golf terminology" do
       expect(@sc.golf_term(1)).to eql("birdie")
       expect(@sc.golf_term(2)).to eql("eagle")
       expect(@sc.golf_term(0)).to eql("par")
@@ -88,32 +86,28 @@ describe ScoreCard do
 
     it "writes the score term to the scorecard" do
       @sc.score_diff
-      #puts @sc.holes.inspect
       expect(@sc.holes.values[0]).to have(3).things
     end
 
     it "can calculate the final score" do
-      #puts @sc.final_score
+
       expect(@sc.final_score).to be_a Fixnum
     end
 
     it "can calculate par for the course" do
-      #puts @sc.par
       expect(@sc.par).to eql(72)
     end
 
 
-end 
+end
 
-describe Player do 
+describe Player do
 
 
- 
+
   before(:each) do
       @course = 'course.csv'
       @course2 = 'course2.csv'
-      #@sc = ScoreCard.new(@course)
-      #@sc.add_score([4,4,3,5,6,6,2,3,3,4,4,7,8,9,2,4,3,5,2])
       @p1 = Player.new("Matt M", @course, @course2)
       @p1.add_score_to_empty_card([4,4,3,5,6,6,2,3,3,4,4,7,8,9,2,4,3,5,2])
       @p1.add_score_to_empty_card([4,4,3,5,6,6,2,5,5,4,5,7,8,9,2,4,3,5,3])
@@ -124,12 +118,9 @@ describe Player do
 
     it "exists" do
       expect(@p1).to_not  be_nil
-
     end
 
     it "has a scorecard" do
-      puts @p1.scorecards[0].holes
-      puts @p1.scorecards[0].inspect
       expect(@p1.scorecards[0]).to_not be_nil
     end
 
@@ -137,31 +128,10 @@ describe Player do
        expect(@p1.scorecards[1]).to_not be_nil
     end
 
-    it "can print multiple score cards out" do 
-      @p1.print_all_player_scores
-    end
-
-    it "can calculate a players handicap" do 
+    it "can calculate a players handicap" do
       expect(@p1.handicap).to be_a Fixnum
 
     end
-
-
-
-    # it "prints a player scorecard" do
-    #   @p1.print_player
-    #   #expect(@p1.print_player).to_not be_nil
-    # end
-
-    # it "checks if scorecard file exists" do
-    #   File.exist?("/Users/Matt/documents/challenges/golf/score.csv")
-
-    # end
-
-    # it "writes to scorecard file" do
-    #   @p1.write_player
-
-    # end
 
 
 end
@@ -177,65 +147,41 @@ describe LeaderBoard do
     @course = 'course.csv'
     @course2 = 'course2.csv'
     @p1 = Player.new("Matt M", @course,@course2)
-    @p1.add_score_to_empty_card([4,4,3,5,6,6,2,6,3,4,4,7,8,9,2,4,3,5,2])
-    @p1.add_score_to_empty_card([3,3,5,5,6,6,3,6,3,4,4,7,8,9,2,4,3,5,2])
+    @p1.add_score_to_empty_card([4,4,3,5,6,6,2,6,3,4,4,7,8,9,2,4,3,5,2]) #87
+    @p1.add_score_to_empty_card([3,3,5,5,6,6,3,6,3,4,4,7,8,9,2,4,3,5,2]) #88
 
     @p1.calculate_all_diffs
 
     @p2 = Player.new("Carl Z", @course,@course2)
-    @p2.add_score_to_empty_card([4,4,3,5,6,6,2,3,3,4,4,7,8,9,2,4,3,5,4])
-    @p2.add_score_to_empty_card([4,4,3,5,5,5,2,6,3,4,4,7,8,9,2,4,3,5,2])
+    @p2.add_score_to_empty_card([4,4,3,5,6,6,2,3,3,4,4,7,8,9,2,4,3,5,4])#86
+    @p2.add_score_to_empty_card([4,4,3,5,5,5,2,6,3,4,4,7,8,9,2,4,3,5,2]) #85
 
     @p2.calculate_all_diffs
 
     @p3 = Player.new("Fuzzy Z", @course, @course2)
-    @p3.add_score_to_empty_card([4,5,4,5,6,6,4,3,3,5,5,7,8,9,2,4,3,5,2])
-    @p3.add_score_to_empty_card([3,2,3,5,6,6,2,6,3,4,4,7,5,5,2,4,1,5,2])
+    @p3.add_score_to_empty_card([4,5,4,5,6,6,4,3,3,5,5,7,8,9,2,4,3,5,2]) #90
+    @p3.add_score_to_empty_card([3,2,3,5,6,6,2,6,3,4,4,7,5,5,2,4,1,5,2]) #75
 
     @p3.calculate_all_diffs
 
     @leaders = LeaderBoard.new(@p1,@p2,@p3)
   end
-    it "exists" do
 
-      expect(@leaders).to_not be_nil
+  it "exists" do
 
+    expect(@leaders).to_not be_nil
 
-    end
-
-
-   
-
-    it "checks if player name is accessible" do
-      expect(@leaders.get_name).to be_a String
-    end
-
-    # it "lists player scores" do
-
-    #   #@leaders.scores
-    #   expect(@leaders.scores).to be_a Array
+  end
 
 
-    # end
+  it "checks if player name is accessible" do
+    expect(@leaders.get_name).to be_a String
+  end
 
 
-    it "checks to see if all_scores returns an array of total rounds played" do
-
-      expect(@leaders.all_rounds).to be_a String
-
-    end  
-
-
-    it "prints the leader board for each round of golf played" do 
-      @leaders.print_each_round_leader(@leaders.all_rounds)
-      #expect(@leaders.print_each_round_leader(@leaders.all_rounds))
-    end
-  #   it "sorts the leader board" do
-  #     #@leaders.sort
-  #     #expect(@leaders.test).to be_a Fixnum
-  #     expect(@leaders.sort).to eql [@p2,@p1,@p3]
-  #   end
-
+  it "can sort by an individual round" do
+    expect(@leaders.sort_round(1)[0]).to eql(@p3)
+  end
 
 end
 

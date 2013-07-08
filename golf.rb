@@ -27,7 +27,7 @@ class HoleLayout
     end
 
     holes
- 
+
   end
 
   def course_file
@@ -57,7 +57,7 @@ class ScoreCard < HoleLayout
     @holes.each do |k,v|
       score = v[0] - v[1]
       #puts score
-       v.push(golf_term(score))    
+       v.push(golf_term(score))
     end
 
 
@@ -74,9 +74,9 @@ class ScoreCard < HoleLayout
         "triple bogey"
       when 0
         "par"
-      when 1 
+      when 1
         "birdie"
-      when 2 
+      when 2
         "eagle"
       else
         score
@@ -108,18 +108,18 @@ end
 
 
 
-class Player 
+class Player
 
   attr_reader :scorecards, :name
 
   def initialize(name, *course)
     @name = name
     @scorecards = []
-    #@scorecard.push(*course.each do { |x| }
+
      course.each do |file|
         @scorecards.push(ScoreCard.new(file))
-      end 
-      #binding.pry
+      end
+
   end
 
   def first_empty_scorecard
@@ -127,7 +127,7 @@ class Player
       if card.holes.first[1].length == 1
         return card
       end
-      #puts "did not find empty scorecard"
+
 
     end
 
@@ -141,14 +141,10 @@ class Player
 
   def add_score_to_empty_card array
 
-
     empty = first_empty_scorecard
-    #puts empty.holes
     empty.holes.each do |k,v|
       k = v.push(array[k])
     end
-
-    #empty.add_score(array)
   end
 
 
@@ -181,24 +177,18 @@ class Player
       end
         puts
     end
+    @scorecard.length
   end
 
   def handicap
 
     handi = 0
-
     @scorecards.each do |card|
-
       handi += ((card.final_score) - (card.par))
     end
-
     handi = (handi / @scorecards.length).round
-
     puts "#{@name} - #{handi} Handicap"
-
     handi
-
-
 
   end
 
@@ -211,15 +201,12 @@ class Player
           file.write "#{v[1]},"
       end
     end
-
   end
-
 
 end
 
 
 class LeaderBoard
-  #include Comparable
 
 
   def initialize (*args)
@@ -231,7 +218,6 @@ class LeaderBoard
 
 
   def scores
-    #puts @leaders.length
 
     @leaders.each do |leader|
       print "#{leader.name} - #{leader.scorecards.final_score}\n"
@@ -249,22 +235,25 @@ class LeaderBoard
     end
   end
 
-
-  def all_rounds
-
-    rounds = []
-
-    @leaders.each_with_index do |player, index|
-      rounds.push([])
-
-      player.scorecards.each do |card|
-        rounds[index].push(["#{player.name}", card.final_score])
-      end
-
-    end
-    rounds 
+  def sort_round round
+    @leaders.sort_by {|player| player.scorecards[round].final_score}
 
   end
+
+
+  def all_rounds_sorted
+
+    str =''
+
+    @leaders.each_with_index do |player, index|
+      sorted_players = sort_round(index)
+      sorted_players.each do |x|
+        str += "#{x.name} "#- #{x.scorecards[index]}\n"
+      end
+    end
+    str
+  end
+
 
   def print_each_round_leader rounds
 
@@ -275,12 +264,6 @@ class LeaderBoard
 
 
   end
-
-
-
-
- 
-
 
 
 end
